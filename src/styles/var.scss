@@ -1,0 +1,61 @@
+@import './rem.scss';
+
+
+// 渐变 使用例子:
+// @include bgGradient(linear, top, #FFF0C5, #FFEFC3);
+// @include bgGradient(linear, -45deg, #FFF0C5, #ff0000);
+// @include bgGradient(linear, right, #fdb727 10%, #f27013 50%);
+// @include bgGradient(repeat_linear, bottom,'','',(#ff0000, #FFF0C5 30%, #ff0000 35%));
+// @include bgGradient(repeat_linear, 90deg,'','',(rgba(58,58,59,1) 0%,rgba(94,94,94,1) 38%,rgba(38,38,38,1) 100%));
+@mixin bgGradient($type:linear, $direct:top, $fromColor:#fff, $toColor:#000, $repeatColor:()){
+  @if $type=='linear' {
+  @if $direct=='top' or $direct=='bottom' or $direct=='left' or $direct=='right'{
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(to $fromColor,$toColor);
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient($type,to $direct,from($fromColor),to($toColor));
+  /* Safari 5.1+, Chrome 10+ */
+  background: -webkit-linear-gradient(to $direct, $fromColor, $toColor);
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(to $direct, $fromColor, $toColor);
+  /* default */
+  background: linear-gradient(to $direct, $fromColor, $toColor);
+  }
+  @else {
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient($fromColor,$toColor);
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient($type,$direct,from($fromColor),to($toColor));
+  /* Safari 5.1+, Chrome 10+ */
+  background: -webkit-linear-gradient($direct, $fromColor, $toColor);
+  /* Opera 11.10+ */
+  background: -o-linear-gradient($direct, $fromColor, $toColor);
+  /* default */
+  background: linear-gradient($direct, $fromColor, $toColor);
+  }
+  }
+  @else if $type=='radial'{
+  /* Firefox 3.6+ */
+  background: -moz-radial-gradient( $fromColor,$toColor);
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient($type,from($fromColor),to($toColor));
+  /* Safari 5.1+, Chrome 10+ */
+  background: -webkit-radial-gradient($fromColor, $toColor);
+  /* Opera 11.10+ */
+  background: -o-radial-gradient($fromColor, $toColor);
+  /* default */
+  background: radial-gradient($fromColor, $toColor);
+  }
+  @else if $type=='repeat_linear' {
+  background: -moz-repeating-linear-gradient(to $direct,$repeatColor);
+  background: -webkit-repeating-linear-gradient(to $direct,$repeatColor);
+  background: -o-repeating-linear-gradient(to $direct,$repeatColor);
+  background: repeating-linear-gradient(to $direct,$repeatColor);
+  }
+  @else if $type=='repeat_radial' {
+  background: -moz-radial-gradient($repeatColor);
+  background: -webkit-radial-gradient($repeatColor);
+  background: -o-radial-gradient($repeatColor);
+  background: radial-gradient($repeatColor);
+  }
+  }

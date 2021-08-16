@@ -1,0 +1,36 @@
+@function to-fixed($number, $digits: 0, $round: "round") {
+  // $number 必须是一个数字
+  @if type-of($number) != number {
+    @warn '#{ $number } is not a number.';
+    @return $number;
+  }
+  // $digits 必须是一个无符号整数
+  @if type-of($digits) != number {
+    @warn '#{ $digits } is not a number.';
+    @return $number;
+  } @else if not unitless($digits) {
+    @warn '#{ $digits } has a unit.';
+    @return $number;
+  }
+
+  $n: 1;
+  @for $i from 1 through $digits {
+    $n: $n * 10;
+  }
+
+  @if $round == "round" {
+    @return round($number * $n) / $n;
+  } @else if $round == "ceil" {
+    @return ceil($number * $n) / $n;
+  } @else if $round == "floor" {
+    @return floor($number * $n) / $n;
+  } @else {
+    @return $number;
+  }
+}
+
+// px -> rem
+@function r($px) {
+  // 375设计图 x2
+  @return to-fixed(($px) / 75, 2) * 1rem;
+}
