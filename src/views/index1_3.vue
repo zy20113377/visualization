@@ -1,6 +1,6 @@
 <template>
-  <div class="home" >
-    home
+  <div>
+    <h2>SVG绘制层次关系图</h2>
   </div>
 </template>
 
@@ -11,15 +11,14 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({
   components: {},
 })
-export default class Home extends Vue {
-  private isShowBottomBtn: boolean = false;
-
+export default class Index extends Vue {
+  
   created() {
+    
   }
-} 
-</script>
-<style lang="scss" scoped>
-.home {
   
 }
+</script>
+<style lang="scss" scoped>
+
 </style>
